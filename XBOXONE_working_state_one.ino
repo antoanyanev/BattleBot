@@ -108,5 +108,4 @@ void loop() {
 
   analogWrite(6, valY);
   analogWrite(9, valX);
-
 }
