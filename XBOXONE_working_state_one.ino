@@ -1,11 +1,5 @@
-/*
- Example sketch for the Xbox ONE USB library - by guruthree, based on work by
- Kristian Lauszus.
- */
-
 #include <XBOXONE.h>
 
-// Satisfy the IDE, which needs to see the include statment in the ino too.
 #ifdef dobogusinclude
 #include <spi4teensy3.h>
 #endif
@@ -13,6 +7,7 @@
 
 USB Usb;
 XBOXONE Xbox(&Usb);
+
 int valX = 0;
 int valY = 0;
 
@@ -24,6 +19,7 @@ void setup() {
     while (1); //halt
   }
   Serial.print(F("\r\nXBOX USB Library Started"));
+
   pinMode(2, OUTPUT);
   pinMode(4, OUTPUT);
   pinMode(7, OUTPUT);
@@ -72,19 +68,6 @@ void loop() {
         Serial.print("\t");
       }
       Serial.println();
-    }
-
-    // Set rumble effect
-    static uint16_t oldL2Value, oldR2Value;
-    if (Xbox.getButtonPress(L2) != oldL2Value || Xbox.getButtonPress(R2) != oldR2Value) {
-      oldL2Value = Xbox.getButtonPress(L2);
-      oldR2Value = Xbox.getButtonPress(R2);
-      uint8_t leftRumble = map(oldL2Value, 0, 1023, 0, 255); // Map the trigger values into a byte
-      uint8_t rightRumble = map(oldR2Value, 0, 1023, 0, 255);
-      if (leftRumble > 0 || rightRumble > 0)
-        Xbox.setRumbleOn(leftRumble, rightRumble, leftRumble, rightRumble);
-      else
-        Xbox.setRumbleOff();
     }
 
     if (Xbox.getButtonClick(L1))
